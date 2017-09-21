@@ -68,6 +68,12 @@ void caret_pos_watcher() {
                 std::cerr << "Failed to get GUI thread info: " << get_last_error_as_string() << std::endl;
             } else {
                 std::cout << "Caret rect: " << gui_thread_info.rcCaret.left << std::endl;
+                AttachThreadInput(GetCurrentThreadId(), fg_window_thread_id, TRUE);
+                POINT caret_pos;
+                memset(&caret_pos, 0, sizeof(POINT));
+                GetCaretPos(&caret_pos);
+                std::cout << "Caret pos: " << caret_pos.x << std::endl;
+                AttachThreadInput(GetCurrentThreadId(), fg_window_thread_id, FALSE);
             }
 //        }
 
